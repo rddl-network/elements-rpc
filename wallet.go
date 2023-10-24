@@ -29,9 +29,12 @@ func GetWalletTx(url string, txhash string) (tx types.GetTransactionResult, err 
 		return tx, err
 	}
 
-	if err := json.Unmarshal(body, &tx); err != nil {
+	var res types.Result
+	if err := json.Unmarshal(body, &res); err != nil {
 		return tx, err
 	}
+
+	tx = res.Result
 
 	return
 }

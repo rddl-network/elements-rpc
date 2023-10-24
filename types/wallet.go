@@ -1,5 +1,10 @@
 package types
 
+// Result to handle JSON-RPC response
+type Result struct {
+	Result GetTransactionResult `json:"result"`
+}
+
 // This models the "short" version of the ListTransactionsResult type, which
 // excludes fields common to the transaction.  These common fields are instead
 // part of the GetTransactionResult.
@@ -16,7 +21,7 @@ type GetTransactionDetailsResult struct {
 // GetTransactionResult models the data from the gettransaction command.
 type GetTransactionResult struct {
 	Amount          map[string]float64            `json:"amount"`
-	Fee             float64                       `json:"fee,omitempty"`
+	Fee             map[string]float64            `json:"fee,omitempty"`
 	Confirmations   int64                         `json:"confirmations"`
 	BlockHash       string                        `json:"blockhash"`
 	BlockIndex      int64                         `json:"blockindex"`
