@@ -1,40 +1,28 @@
 package elementsrpc
 
 import (
-	"bytes"
 	"encoding/json"
-	"fmt"
-	"io"
-	"net/http"
 
-	types "github.com/rddl-network/elements-rpc/types"
+	"github.com/rddl-network/elements-rpc/types"
 )
 
+// GetTransaction retrieves a transaction from the chain.
+func GetTransaction(url, params string) (transactionResult types.GetTransactionResult, err error) {
+	result, err := SendRequest(url, "gettransaction", params)
+	if err != nil {
+		return
+	}
+	err = json.Unmarshal(result, &transactionResult)
+	if err != nil {
+		return
+	}
+	return
+}
+
+// GetWalletTx retrieves a transaction from the chain.
+//
+// Deprecated: Only for backward compatibility. Use GetTransaction instead.
 func GetWalletTx(url string, txhash string) (tx types.GetTransactionResult, err error) {
-	jsonStr := []byte(fmt.Sprintf(`{"jsonrpc":"1.0","method":"gettransaction","params":["%s"]}`, txhash))
-
-	request, err := http.NewRequest("POST", url, bytes.NewBuffer(jsonStr))
-	request.Header.Set("Content-Type", "application/json")
-
-	client := &http.Client{}
-
-	response, err := client.Do(request)
-	if err != nil {
-		return tx, err
-	}
-	defer response.Body.Close()
-
-	body, err := io.ReadAll(response.Body)
-	if err != nil {
-		return tx, err
-	}
-
-	var res types.Result
-	if err := json.Unmarshal(body, &res); err != nil {
-		return tx, err
-	}
-
-	tx = res.Result
-
+	tx, err = GetTransaction(url, `"`+txhash+`"`)
 	return
 }

@@ -1,10 +1,5 @@
 package types
 
-// Result to handle JSON-RPC response
-type Result struct {
-	Result GetTransactionResult `json:"result"`
-}
-
 // This models the "short" version of the ListTransactionsResult type, which
 // excludes fields common to the transaction.  These common fields are instead
 // part of the GetTransactionResult.
