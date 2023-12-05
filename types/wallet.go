@@ -1,8 +1,27 @@
 package types
 
-// Result to handle JSON-RPC response
-type Result struct {
-	Result GetTransactionResult `json:"result"`
+// GetAddressInfoResult models the result of a "getaddressinfo" request.
+type GetAddressInfoResult struct {
+	Address             string   `json:"address"`
+	Confidential        string   `json:"confidential"`
+	ConfidentialKey     string   `json:"confidential_key"`
+	Desc                string   `json:"desc"`
+	Hdkeypath           string   `json:"hdkeypath"`
+	Hdmasterfingerprint string   `json:"hdmasterfingerprint"`
+	Hdseedid            string   `json:"hdseedid"`
+	Ischange            bool     `json:"ischange"`
+	Ismine              bool     `json:"ismine"`
+	Isscript            bool     `json:"isscript"`
+	Iswatchonly         bool     `json:"iswatchonly"`
+	Iswitness           bool     `json:"iswitness"`
+	Labels              []string `json:"labels"`
+	Pubkey              string   `json:"pubkey"`
+	ScriptPubKey        string   `json:"scriptPubKey"`
+	Solvable            bool     `json:"solvable"`
+	Timestamp           int      `json:"timestamp"`
+	Unconfidential      string   `json:"unconfidential"`
+	WitnessProgram      string   `json:"witness_program"`
+	WitnessVersion      int      `json:"witness_version"`
 }
 
 // This models the "short" version of the ListTransactionsResult type, which
@@ -32,4 +51,11 @@ type GetTransactionResult struct {
 	TimeReceived    int64                         `json:"timereceived"`
 	Details         []GetTransactionDetailsResult `json:"details"`
 	Hex             string                        `json:"hex"`
+}
+
+// SignRawTransactionWithWalletResult models the result of a
+// "signrawtransactionwithwallet" transaction.
+type SignRawTransactionWithWalletResult struct {
+	Hex      string `json:"hex"`
+	Complete bool   `json:"complete"`
 }
