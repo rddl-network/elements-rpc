@@ -1,5 +1,29 @@
 package types
 
+// GetAddressInfoResult models the result of a "getaddressinfo" request.
+type GetAddressInfoResult struct {
+	Address             string   `json:"address"`
+	Confidential        string   `json:"confidential"`
+	ConfidentialKey     string   `json:"confidential_key"`
+	Desc                string   `json:"desc"`
+	Hdkeypath           string   `json:"hdkeypath"`
+	Hdmasterfingerprint string   `json:"hdmasterfingerprint"`
+	Hdseedid            string   `json:"hdseedid"`
+	Ischange            bool     `json:"ischange"`
+	Ismine              bool     `json:"ismine"`
+	Isscript            bool     `json:"isscript"`
+	Iswatchonly         bool     `json:"iswatchonly"`
+	Iswitness           bool     `json:"iswitness"`
+	Labels              []string `json:"labels"`
+	Pubkey              string   `json:"pubkey"`
+	ScriptPubKey        string   `json:"scriptPubKey"`
+	Solvable            bool     `json:"solvable"`
+	Timestamp           int      `json:"timestamp"`
+	Unconfidential      string   `json:"unconfidential"`
+	WitnessProgram      string   `json:"witness_program"`
+	WitnessVersion      int      `json:"witness_version"`
+}
+
 // This models the "short" version of the ListTransactionsResult type, which
 // excludes fields common to the transaction.  These common fields are instead
 // part of the GetTransactionResult.

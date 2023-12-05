@@ -18,6 +18,19 @@ func BlindRawTransaction(url, params string) (hex string, err error) {
 	return
 }
 
+// GetAddressInfo returns information about the given address.
+func GetAddressInfo(url, params string) (transactionResult types.GetAddressInfoResult, err error) {
+	result, err := SendRequest(url, "getaddressinfo", params)
+	if err != nil {
+		return
+	}
+	err = json.Unmarshal(result, &transactionResult)
+	if err != nil {
+		return
+	}
+	return
+}
+
 // GetNewAddress returns a new address for receiving payments.
 func GetNewAddress(url, params string) (address string, err error) {
 	result, err := SendRequest(url, "getnewaddress", params)
