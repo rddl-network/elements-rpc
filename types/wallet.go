@@ -28,3 +28,10 @@ type GetTransactionResult struct {
 	Details         []GetTransactionDetailsResult `json:"details"`
 	Hex             string                        `json:"hex"`
 }
+
+// SignRawTransactionWithWalletResult models the result of a
+// "signrawtransactionwithwallet" transaction.
+type SignRawTransactionWithWalletResult struct {
+	Hex      string `json:"hex"`
+	Complete bool   `json:"complete"`
+}
