@@ -54,14 +54,6 @@ func GetTransaction(url, params string) (transactionResult types.GetTransactionR
 	return
 }
 
-// GetWalletTx retrieves a transaction from the chain.
-//
-// Deprecated: Only for backward compatibility. Use GetTransaction instead.
-func GetWalletTx(url string, txhash string) (tx types.GetTransactionResult, err error) {
-	tx, err = GetTransaction(url, `"`+txhash+`"`)
-	return
-}
-
 // SignRawTransactionWithWallet signs inputs for raw transaction (serialized,
 // hex-encoded).
 func SignRawTransactionWithWallet(url, params string) (transactionResult types.SignRawTransactionWithWalletResult, err error) {
