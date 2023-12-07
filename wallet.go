@@ -9,7 +9,7 @@ import (
 
 // BlindRawTransaction converts one or more outputs of a raw transaction into
 // confidential ones using only wallet inputs.
-func BlindRawTransaction(url, params string) (hex string, err error) {
+func BlindRawTransaction(url string, params []string) (hex string, err error) {
 	result, err := SendRequest(url, "blindrawtransaction", params)
 	if err != nil {
 		return
@@ -19,7 +19,7 @@ func BlindRawTransaction(url, params string) (hex string, err error) {
 }
 
 // GetAddressInfo returns information about the given address.
-func GetAddressInfo(url, params string) (transactionResult types.GetAddressInfoResult, err error) {
+func GetAddressInfo(url string, params []string) (transactionResult types.GetAddressInfoResult, err error) {
 	result, err := SendRequest(url, "getaddressinfo", params)
 	if err != nil {
 		return
@@ -32,7 +32,7 @@ func GetAddressInfo(url, params string) (transactionResult types.GetAddressInfoR
 }
 
 // GetNewAddress returns a new address for receiving payments.
-func GetNewAddress(url, params string) (address string, err error) {
+func GetNewAddress(url string, params []string) (address string, err error) {
 	result, err := SendRequest(url, "getnewaddress", params)
 	if err != nil {
 		return
@@ -42,7 +42,7 @@ func GetNewAddress(url, params string) (address string, err error) {
 }
 
 // GetTransaction retrieves a transaction from the chain.
-func GetTransaction(url, params string) (transactionResult types.GetTransactionResult, err error) {
+func GetTransaction(url string, params []string) (transactionResult types.GetTransactionResult, err error) {
 	result, err := SendRequest(url, "gettransaction", params)
 	if err != nil {
 		return
@@ -56,7 +56,7 @@ func GetTransaction(url, params string) (transactionResult types.GetTransactionR
 
 // SignRawTransactionWithWallet signs inputs for raw transaction (serialized,
 // hex-encoded).
-func SignRawTransactionWithWallet(url, params string) (transactionResult types.SignRawTransactionWithWalletResult, err error) {
+func SignRawTransactionWithWallet(url string, params []string) (transactionResult types.SignRawTransactionWithWalletResult, err error) {
 	result, err := SendRequest(url, "signrawtransactionwithwallet", params)
 	if err != nil {
 		return

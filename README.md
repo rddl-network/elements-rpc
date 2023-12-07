@@ -30,22 +30,32 @@ type Contract struct {
 func main() {
         url := "http://user:password@127.0.0.1:18891/wallet/foowallet"
 
-        address, err := elements.GetNewAddress(url, ``)
+        address, err := elements.GetNewAddress(url, []string{
+                ``,
+        })
         if err != nil {
                 log.Fatal(err)
         }
 
-        addressInfo, err := elements.GetAddressInfo(url, `"`+address+`"`)
+        addressInfo, err := elements.GetAddressInfo(url, []string{
+                address,
+        })
         if err != nil {
                 log.Fatal(err)
         }
 
-        hex, err := elements.CreateRawTransaction(url, `[], [{"data":"00"}]`)
+        hex, err := elements.CreateRawTransaction(url, []string{
+                `[]`,
+                `[{"data":"00"}]`,
+        })
         if err != nil {
                 log.Fatal(err)
         }
 
-        fundRawTransactionResult, err := elements.FundRawTransaction(url, `"`+hex+`", {"feeRate":0.00001000}`)
+        fundRawTransactionResult, err := elements.FundRawTransaction(url, []string{
+                hex,
+                `{"feeRate":0.00001000}`,
+        })
         if err != nil {
                 log.Fatal(err)
         }
@@ -77,23 +87,33 @@ func main() {
                 hash[i], hash[j] = hash[j], hash[i]
         }
 
-        rawIssueAssetResults, err := elements.RawIssueAsset(url, `"`+fundRawTransactionResult.Hex+`", [{"asset_amount":0.00000001, "asset_address":"`+address+`", "blind":false, "contract_hash":"`+fmt.Sprintf("%+x", hash)+`"}]`)
+        rawIssueAssetResults, err := elements.RawIssueAsset(url, []string{
+                fundRawTransactionResult.Hex,
+                `[{"asset_amount":0.00000001, "asset_address":"` + address + `", "blind":false, "contract_hash":"` + fmt.Sprintf("%+x", hash) + `"}]`,
+        })
         if err != nil {
                 log.Fatal(err)
         }
 
         rawIssueAssetResult := rawIssueAssetResults[len(rawIssueAssetResults)-1]
-        hex, err = elements.BlindRawTransaction(url, `"`+rawIssueAssetResult.Hex+`", true, [], false`)
+        hex, err = elements.BlindRawTransaction(url, []string{
+                rawIssueAssetResult.Hex,
+                `true, [], false`,
+        })
         if err != nil {
                 log.Fatal(err)
         }
 
-        signRawTransactionWithWalletResult, err := elements.SignRawTransactionWithWallet(url, `"`+hex+`"`)
+        signRawTransactionWithWalletResult, err := elements.SignRawTransactionWithWallet(url, []string{
+                hex,
+        })
         if err != nil {
                 log.Fatal(err)
         }
 
-        testMempoolAcceptResults, err := elements.TestMempoolAccept(url, `["`+signRawTransactionWithWalletResult.Hex+`"]`)
+        testMempoolAcceptResults, err := elements.TestMempoolAccept(url, []string{
+                `["` + signRawTransactionWithWalletResult.Hex + `"]`,
+        })
         if err != nil {
                 log.Fatal(err)
         }
@@ -103,7 +123,9 @@ func main() {
                 log.Fatalln("not accepted by mempool")
         }
 
-        hex, err = elements.SendRawTransaction(url, `"`+signRawTransactionWithWalletResult.Hex+`"`)
+        hex, err = elements.SendRawTransaction(url, []string{
+                signRawTransactionWithWalletResult.Hex,
+        })
         if err != nil {
                 log.Fatal(err)
         }
