@@ -9,7 +9,7 @@ import (
 
 // CreateRawTransaction creates a transaction spending the given inputs and
 // creating new outputs.
-func CreateRawTransaction(url, params string) (hex string, err error) {
+func CreateRawTransaction(url string, params []string) (hex string, err error) {
 	result, err := SendRequest(url, "createrawtransaction", params)
 	if err != nil {
 		return
@@ -19,7 +19,7 @@ func CreateRawTransaction(url, params string) (hex string, err error) {
 }
 
 // FundRawTransaction funds a raw transaction.
-func FundRawTransaction(url, params string) (transactionResult types.FundRawTransactionResult, err error) {
+func FundRawTransaction(url string, params []string) (transactionResult types.FundRawTransactionResult, err error) {
 	result, err := SendRequest(url, "fundrawtransaction", params)
 	if err != nil {
 		return
@@ -32,7 +32,7 @@ func FundRawTransaction(url, params string) (transactionResult types.FundRawTran
 }
 
 // RawIssueAsset creates an asset by attaching issuances to transaction inputs.
-func RawIssueAsset(url, params string) (transactionResults []types.RawIssueAssetResult, err error) {
+func RawIssueAsset(url string, params []string) (transactionResults []types.RawIssueAssetResult, err error) {
 	result, err := SendRequest(url, "rawissueasset", params)
 	if err != nil {
 		return
@@ -46,7 +46,7 @@ func RawIssueAsset(url, params string) (transactionResults []types.RawIssueAsset
 
 // SendRawTransaction submits a raw transaction (serialized, hex-encoded) to
 // local node and network.
-func SendRawTransaction(url, params string) (hex string, err error) {
+func SendRawTransaction(url string, params []string) (hex string, err error) {
 	result, err := SendRequest(url, "sendrawtransaction", params)
 	if err != nil {
 		return
@@ -57,7 +57,7 @@ func SendRawTransaction(url, params string) (hex string, err error) {
 
 // TestMempoolAccept returns result of mempool acceptance tests indicating if
 // raw transaction(s) (serialized, hex-encoded) would be accepted by mempool.
-func TestMempoolAccept(url, params string) (transactionResults []types.TestMempoolAcceptResult, err error) {
+func TestMempoolAccept(url string, params []string) (transactionResults []types.TestMempoolAcceptResult, err error) {
 	result, err := SendRequest(url, "testmempoolaccept", params)
 	if err != nil {
 		return

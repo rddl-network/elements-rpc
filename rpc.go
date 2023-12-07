@@ -3,15 +3,34 @@ package elementsrpc
 import (
 	"bytes"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"io"
 	"net/http"
+	"strings"
 
 	"github.com/rddl-network/elements-rpc/types"
 )
 
-func SendRequest(url, method, params string) (result []byte, err error) {
-	jsonStr := fmt.Sprintf(`{"jsonrpc":"1.0","method":"%s","params":[%s]}`, method, params)
+func parse(params []string) (param string, err error) {
+	if len(params) == 0 {
+		err = errors.New("parameters must not be empty")
+		return
+	}
+
+	if !strings.HasPrefix(params[0], "[") || !strings.HasSuffix(params[0], "]") {
+		params[0] = `"` + params[0] + `"`
+	}
+	param = strings.Join(params[:], ",")
+	return
+}
+
+func SendRequest(url, method string, params []string) (result []byte, err error) {
+	param, err := parse(params)
+	if err != nil {
+		return
+	}
+	jsonStr := fmt.Sprintf(`{"jsonrpc":"1.0","method":"%s","params":[%s]}`, method, param)
 
 	request, err := http.NewRequest(http.MethodPost, url, bytes.NewBuffer([]byte(jsonStr)))
 	request.Header.Set("Content-Type", "application/json")
