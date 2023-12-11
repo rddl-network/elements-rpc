@@ -53,6 +53,12 @@ type GetTransactionResult struct {
 	Hex             string                        `json:"hex"`
 }
 
+// ReissueAssetResult models the result of a "reissueasset" transaction.
+type ReissueAssetResult struct {
+	TxID string `json:"txid"`
+	Vin  int64  `json:"vin"`
+}
+
 // SignRawTransactionWithWalletResult models the result of a
 // "signrawtransactionwithwallet" transaction.
 type SignRawTransactionWithWalletResult struct {
