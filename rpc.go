@@ -2,6 +2,7 @@ package elementsrpc
 
 import (
 	"bytes"
+	"context"
 	"encoding/json"
 	"errors"
 	"fmt"
@@ -21,7 +22,7 @@ func parse(params []string) (param string, err error) {
 	if !strings.HasPrefix(params[0], "[") || !strings.HasSuffix(params[0], "]") {
 		params[0] = `"` + params[0] + `"`
 	}
-	param = strings.Join(params[:], ",")
+	param = strings.Join(params, ",")
 	return
 }
 
@@ -32,7 +33,11 @@ func SendRequest(url, method string, params []string) (result []byte, err error)
 	}
 	jsonStr := fmt.Sprintf(`{"jsonrpc":"1.0","method":"%s","params":[%s]}`, method, param)
 
-	request, err := http.NewRequest(http.MethodPost, url, bytes.NewBuffer([]byte(jsonStr)))
+	ctx := context.Background()
+	request, err := http.NewRequestWithContext(ctx, http.MethodPost, url, bytes.NewBufferString(jsonStr))
+	if err != nil {
+		return
+	}
 	request.Header.Set("Content-Type", "application/json")
 
 	client := &http.Client{}
