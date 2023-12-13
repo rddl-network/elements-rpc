@@ -13,6 +13,19 @@ import (
 	"github.com/rddl-network/elements-rpc/types"
 )
 
+// HTTPClient interface
+type HTTPClient interface {
+	Do(req *http.Request) (*http.Response, error)
+}
+
+var (
+	Client HTTPClient
+)
+
+func init() {
+	Client = &http.Client{}
+}
+
 func parse(params []string) (param string, err error) {
 	if len(params) == 0 {
 		err = errors.New("parameters must not be empty")
@@ -40,8 +53,7 @@ func SendRequest(url, method string, params []string) (result []byte, err error)
 	}
 	request.Header.Set("Content-Type", "application/json")
 
-	client := &http.Client{}
-	resp, err := client.Do(request)
+	resp, err := Client.Do(request)
 	if err != nil {
 		return
 	}
