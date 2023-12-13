@@ -38,7 +38,7 @@ func GetDoFunc(req *http.Request) (*http.Response, error) {
 	}
 	var response types.Response
 	switch body.Method {
-	case "reissueasset":
+	case types.MethodReissueAsset:
 		reissueAssetResult := types.ReissueAssetResult{TxID: txID, Vin: 0}
 		response.Result = reissueAssetResult
 		response.Error.Code = 0

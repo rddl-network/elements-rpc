@@ -10,7 +10,7 @@ import (
 // CreateRawTransaction creates a transaction spending the given inputs and
 // creating new outputs.
 func CreateRawTransaction(url string, params []string) (hex string, err error) {
-	result, err := SendRequest(url, "createrawtransaction", params)
+	result, err := SendRequest(url, types.MethodCreateRawTransaction, params)
 	if err != nil {
 		return
 	}
@@ -20,7 +20,7 @@ func CreateRawTransaction(url string, params []string) (hex string, err error) {
 
 // FundRawTransaction funds a raw transaction.
 func FundRawTransaction(url string, params []string) (transactionResult types.FundRawTransactionResult, err error) {
-	result, err := SendRequest(url, "fundrawtransaction", params)
+	result, err := SendRequest(url, types.MethodFundRawTransaction, params)
 	if err != nil {
 		return
 	}
@@ -33,7 +33,7 @@ func FundRawTransaction(url string, params []string) (transactionResult types.Fu
 
 // RawIssueAsset creates an asset by attaching issuances to transaction inputs.
 func RawIssueAsset(url string, params []string) (transactionResults []types.RawIssueAssetResult, err error) {
-	result, err := SendRequest(url, "rawissueasset", params)
+	result, err := SendRequest(url, types.MethodRawIssueAsset, params)
 	if err != nil {
 		return
 	}
@@ -47,7 +47,7 @@ func RawIssueAsset(url string, params []string) (transactionResults []types.RawI
 // SendRawTransaction submits a raw transaction (serialized, hex-encoded) to
 // local node and network.
 func SendRawTransaction(url string, params []string) (hex string, err error) {
-	result, err := SendRequest(url, "sendrawtransaction", params)
+	result, err := SendRequest(url, types.MethodSendRawTransaction, params)
 	if err != nil {
 		return
 	}
@@ -58,7 +58,7 @@ func SendRawTransaction(url string, params []string) (hex string, err error) {
 // TestMempoolAccept returns result of mempool acceptance tests indicating if
 // raw transaction(s) (serialized, hex-encoded) would be accepted by mempool.
 func TestMempoolAccept(url string, params []string) (transactionResults []types.TestMempoolAcceptResult, err error) {
-	result, err := SendRequest(url, "testmempoolaccept", params)
+	result, err := SendRequest(url, types.MethodTestMempoolAccept, params)
 	if err != nil {
 		return
 	}
