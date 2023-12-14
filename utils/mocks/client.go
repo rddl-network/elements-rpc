@@ -3,6 +3,7 @@ package mocks
 import (
 	"bytes"
 	"encoding/json"
+	"fmt"
 	"io"
 	"net/http"
 
@@ -81,7 +82,7 @@ func GetDoFunc(req *http.Request) (*http.Response, error) {
 	default:
 		response.Result = nil
 		response.Error.Code = -1337
-		response.Error.Message = "method not implemented"
+		response.Error.Message = fmt.Sprintf("method '%s' not implemented", body.Method)
 	}
 	respBytes, err := json.Marshal(&response)
 	if err != nil {
