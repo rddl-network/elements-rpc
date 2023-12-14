@@ -3,6 +3,7 @@ package mocks
 import (
 	"bytes"
 	"encoding/json"
+	"fmt"
 	"io"
 	"net/http"
 
@@ -34,7 +35,6 @@ var (
 	testMempoolAcceptResults           = []types.TestMempoolAcceptResult{testMempoolAcceptResult}
 	transactionResult                  = types.GetTransactionResult{Hex: zeros, TxID: zeros}
 	zeros                              = "0000000000000000000000000000000000000000000000000000000000000000"
-	zerosWithQuotes                    = `"` + zeros + `"`
 )
 
 // GetDoFunc fetches the mock client's `Do` func
@@ -55,9 +55,9 @@ func GetDoFunc(req *http.Request) (*http.Response, error) {
 
 	switch body.Method {
 	case types.MethodBlindRawTransaction:
-		response.Result = zerosWithQuotes
+		response.Result = zeros
 	case types.MethodCreateRawTransaction:
-		response.Result = zerosWithQuotes
+		response.Result = zeros
 	case types.MethodFundRawTransaction:
 		response.Result = fundRawTransactionResult
 	case types.MethodGetAddressInfo:
@@ -71,9 +71,9 @@ func GetDoFunc(req *http.Request) (*http.Response, error) {
 	case types.MethodReissueAsset:
 		response.Result = reissueAssetResult
 	case types.MethodSendRawTransaction:
-		response.Result = zerosWithQuotes
+		response.Result = zeros
 	case types.MethodSendToAddress:
-		response.Result = zerosWithQuotes
+		response.Result = zeros
 	case types.MethodSignRawTransactionWithWallet:
 		response.Result = signRawTransactionWithWalletResult
 	case types.MethodTestMempoolAccept:
@@ -81,7 +81,7 @@ func GetDoFunc(req *http.Request) (*http.Response, error) {
 	default:
 		response.Result = nil
 		response.Error.Code = -1337
-		response.Error.Message = "method not implemented"
+		response.Error.Message = fmt.Sprintf("method '%s' not implemented", body.Method)
 	}
 	respBytes, err := json.Marshal(&response)
 	if err != nil {
