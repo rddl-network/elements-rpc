@@ -25,9 +25,9 @@ type MockClient struct {
 // Note: not all fields in the results are set
 var (
 	address                            = "tlq1qqdhf9taz5ftpxcl0qphdurs9csneacznlazmqqdjs9te0jh7nld0w3rmvzfuggr7l508ahclr69te88exl4rjp8z8etu5d35t"
-	addressInfoResult                  = types.GetAddressInfoResult{Address: address, Confidential: address}
+	addressInfoResult                  = types.GetAddressInfoResult{Address: address, Confidential: address, Pubkey: "02" + zeros}
 	fundRawTransactionResult           = types.FundRawTransactionResult{Hex: zeros, Fee: 0.0, Changepos: 0}
-	rawIssueAssetResult                = types.RawIssueAssetResult{Hex: zeros, Vin: 0, Entropy: "", Asset: "", Token: ""}
+	rawIssueAssetResult                = types.RawIssueAssetResult{Hex: zeros, Vin: 0, Entropy: "", Asset: zeros, Token: ""}
 	rawIssueAssetResults               = []types.RawIssueAssetResult{rawIssueAssetResult}
 	reissueAssetResult                 = types.ReissueAssetResult{TxID: zeros, Vin: 0}
 	signRawTransactionWithWalletResult = types.SignRawTransactionWithWalletResult{Hex: zeros, Complete: true}
