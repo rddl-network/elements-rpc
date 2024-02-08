@@ -20,4 +20,5 @@ var (
 	MethodSendToAddress                = "sendtoaddress"
 	MethodSignRawTransactionWithWallet = "signrawtransactionwithwallet"
 	MethodTestMempoolAccept            = "testmempoolaccept"
+	MethodDeriveAddresses              = "deriveaddresses"
 )
