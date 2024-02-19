@@ -15,6 +15,7 @@ var (
 	MethodGetNewAddress                = "getnewaddress"
 	MethodGetRawTransaction            = "getrawtransaction"
 	MethodGetTransaction               = "gettransaction"
+	MethodLoadWallet                   = "loadwallet"
 	MethodRawIssueAsset                = "rawissueasset"
 	MethodReissueAsset                 = "reissueasset"
 	MethodSendRawTransaction           = "sendrawtransaction"
@@ -22,4 +23,6 @@ var (
 	MethodSignRawTransactionWithWallet = "signrawtransactionwithwallet"
 	MethodTestMempoolAccept            = "testmempoolaccept"
 	MethodDeriveAddresses              = "deriveaddresses"
+	MethodUnloadWallet                 = "unloadwallet"
+	MethodWalletpassphrase             = "walletpassphrase"
 )
