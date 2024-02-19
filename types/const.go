@@ -13,6 +13,7 @@ var (
 	MethodFundRawTransaction           = "fundrawtransaction"
 	MethodGetAddressInfo               = "getaddressinfo"
 	MethodGetNewAddress                = "getnewaddress"
+	MethodGetRawTransaction            = "getrawtransaction"
 	MethodGetTransaction               = "gettransaction"
 	MethodRawIssueAsset                = "rawissueasset"
 	MethodReissueAsset                 = "reissueasset"
