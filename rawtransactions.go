@@ -2,10 +2,13 @@ package elementsrpc
 
 import (
 	"encoding/json"
+	"errors"
 	"strings"
 
 	"github.com/rddl-network/elements-rpc/types"
 )
+
+var ErrOnlyPassTransactionID = errors.New("only provide the transaction id")
 
 // CreateRawTransaction creates a transaction spending the given inputs and
 // creating new outputs.
@@ -21,6 +24,25 @@ func CreateRawTransaction(url string, params []string) (hex string, err error) {
 // FundRawTransaction funds a raw transaction.
 func FundRawTransaction(url string, params []string) (transactionResult types.FundRawTransactionResult, err error) {
 	result, err := SendRequest(url, types.MethodFundRawTransaction, params)
+	if err != nil {
+		return
+	}
+	err = json.Unmarshal(result, &transactionResult)
+	if err != nil {
+		return
+	}
+	return
+}
+
+// GetRawTransaction gets a raw transaction.
+func GetRawTransaction(url string, params []string) (transactionResult types.GetRawTransactionResult, err error) {
+	if len(params) > 1 {
+		err = ErrOnlyPassTransactionID
+		return
+	}
+	// Always return verbose. Otherwise we cannot unmarhal into transaction result.
+	params = append(params, "true")
+	result, err := SendRequest(url, types.MethodGetRawTransaction, params)
 	if err != nil {
 		return
 	}
