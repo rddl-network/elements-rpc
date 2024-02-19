@@ -70,6 +70,44 @@ Output:
 62eefd1ab286bd4c344f8806fc507d5effd26176e91add5afb7f4f6531cf543e
 ```
 
+### Wallet management
+```
+package main
+
+import (
+        "fmt"
+        "log"
+
+        elements "github.com/rddl-network/elements-rpc"
+)
+
+func main() {
+        url := "http://user:password@127.0.0.1:18891/wallet/foowallet"
+        loadWalletResult, err := elements.LoadWallet(url, []string{"foowallet", "true"})
+        if err != nil {
+                log.Fatal(err)
+        }
+        fmt.Printf("%+v\n", loadWalletResult)
+
+        // wallet was created with passphrase "foobar"
+        err = elements.Walletpassphrase(url, []string{"foobar", "60"})
+        if err != nil {
+                log.Fatal(err)
+        }
+
+        unloadWalletResult, err := elements.UnloadWallet(url, []string{"foowallet", "true"})
+        if err != nil {
+                log.Fatal(err)
+        }
+        fmt.Printf("%+v\n", unloadWalletResult)
+}
+```
+Output:
+```
+{Name:foowallet Warning:}
+{Warning:}
+```
+
 ### Complex Example
 
 ```

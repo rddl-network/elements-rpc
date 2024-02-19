@@ -54,6 +54,19 @@ func GetTransaction(url string, params []string) (transactionResult types.GetTra
 	return
 }
 
+// LoadWallet loads a wallet from a wallet file or directory.
+func LoadWallet(url string, params []string) (loadWalletResult types.LoadWalletResult, err error) {
+	result, err := SendRequest(url, types.MethodLoadWallet, params)
+	if err != nil {
+		return
+	}
+	err = json.Unmarshal(result, &loadWalletResult)
+	if err != nil {
+		return
+	}
+	return
+}
+
 // ReissueAsset creates more of an already issued asset. Must have reissuance
 // token in wallet to do so.
 func ReissueAsset(url string, params []string) (transactionResult types.ReissueAssetResult, err error) {
@@ -91,6 +104,30 @@ func SignRawTransactionWithWallet(url string, params []string) (transactionResul
 	}
 	if !transactionResult.Complete {
 		err = types.ErrMissingSignatures
+		return
+	}
+	return
+}
+
+// UnloadWallet unloads the wallet referenced by the request endpoint otherwise
+// unloads the wallet specified in the argument.
+func UnloadWallet(url string, params []string) (unloadWalletResult types.UnloadWalletResult, err error) {
+	result, err := SendRequest(url, types.MethodUnloadWallet, params)
+	if err != nil {
+		return
+	}
+	err = json.Unmarshal(result, &unloadWalletResult)
+	if err != nil {
+		return
+	}
+	return
+}
+
+// Walletpassphrase stores the wallet decryption key in memory for 'timeout'
+// seconds.
+func Walletpassphrase(url string, params []string) (err error) {
+	_, err = SendRequest(url, types.MethodWalletpassphrase, params)
+	if err != nil {
 		return
 	}
 	return

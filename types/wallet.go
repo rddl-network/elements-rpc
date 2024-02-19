@@ -53,6 +53,12 @@ type GetTransactionResult struct {
 	Hex             string                        `json:"hex"`
 }
 
+// LoadWalletResult models the result of the loadwallet command.
+type LoadWalletResult struct {
+	Name    string `json:"name"`
+	Warning string `json:"warning"`
+}
+
 // ReissueAssetResult models the result of a "reissueasset" transaction.
 type ReissueAssetResult struct {
 	TxID string `json:"txid"`
@@ -64,4 +70,9 @@ type ReissueAssetResult struct {
 type SignRawTransactionWithWalletResult struct {
 	Hex      string `json:"hex"`
 	Complete bool   `json:"complete"`
+}
+
+// UnloadWalletResult models the result of the unloadwallet command.
+type UnloadWalletResult struct {
+	Warning string `json:"warning"`
 }
