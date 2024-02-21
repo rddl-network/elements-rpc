@@ -19,12 +19,12 @@ func BlindRawTransaction(url string, params []string) (hex string, err error) {
 }
 
 // GetAddressInfo returns information about the given address.
-func GetAddressInfo(url string, params []string) (transactionResult types.GetAddressInfoResult, err error) {
+func GetAddressInfo(url string, params []string) (addressInfo types.GetAddressInfoResult, err error) {
 	result, err := SendRequest(url, types.MethodGetAddressInfo, params)
 	if err != nil {
 		return
 	}
-	err = json.Unmarshal(result, &transactionResult)
+	err = json.Unmarshal(result, &addressInfo)
 	if err != nil {
 		return
 	}
