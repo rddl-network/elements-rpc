@@ -134,8 +134,12 @@ func Walletpassphrase(url string, params []string) (err error) {
 }
 
 // Listwallets returns the list of loaded wallets.
-func ListWallets(url string, params []string) (result []byte, err error) {
-	_, err = SendRequest(url, types.MethodListWallets, params)
+func ListWallets(url string, params []string) (wallets []string, err error) {
+	byteWallets, err := SendRequest(url, types.MethodListWallets, params)
+	if err != nil {
+		return
+	}
+	err = json.Unmarshal(byteWallets, &wallets)
 	if err != nil {
 		return
 	}
