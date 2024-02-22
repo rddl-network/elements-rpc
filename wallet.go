@@ -19,12 +19,12 @@ func BlindRawTransaction(url string, params []string) (hex string, err error) {
 }
 
 // GetAddressInfo returns information about the given address.
-func GetAddressInfo(url string, params []string) (transactionResult types.GetAddressInfoResult, err error) {
+func GetAddressInfo(url string, params []string) (addressInfoResult types.GetAddressInfoResult, err error) {
 	result, err := SendRequest(url, types.MethodGetAddressInfo, params)
 	if err != nil {
 		return
 	}
-	err = json.Unmarshal(result, &transactionResult)
+	err = json.Unmarshal(result, &addressInfoResult)
 	if err != nil {
 		return
 	}
@@ -127,6 +127,32 @@ func UnloadWallet(url string, params []string) (unloadWalletResult types.UnloadW
 // seconds.
 func Walletpassphrase(url string, params []string) (err error) {
 	_, err = SendRequest(url, types.MethodWalletpassphrase, params)
+	if err != nil {
+		return
+	}
+	return
+}
+
+// Listwallets returns the list of loaded wallets.
+func ListWallets(url string, params []string) (wallets []string, err error) {
+	byteWallets, err := SendRequest(url, types.MethodListWallets, params)
+	if err != nil {
+		return
+	}
+	err = json.Unmarshal(byteWallets, &wallets)
+	if err != nil {
+		return
+	}
+	return
+}
+
+// Listreceivedbyaddress returns a list of transactions
+func ListReceivedByAddress(url string, params []string) (listReceivedByAddressResults []types.ListReceivedByAddressResult, err error) {
+	result, err := SendRequest(url, types.MethodListReceivedByAddress, params)
+	if err != nil {
+		return
+	}
+	err = json.Unmarshal(result, &listReceivedByAddressResults)
 	if err != nil {
 		return
 	}

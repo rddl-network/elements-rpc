@@ -4,7 +4,6 @@ import (
 	"bytes"
 	"context"
 	"encoding/json"
-	"errors"
 	"fmt"
 	"io"
 	"net/http"
@@ -26,9 +25,9 @@ func init() {
 	Client = &http.Client{}
 }
 
-func parse(params []string) (param string, err error) {
+func parse(params []string) (param string) {
 	if len(params) == 0 {
-		err = errors.New("parameters must not be empty")
+		param = ""
 		return
 	}
 
@@ -40,10 +39,7 @@ func parse(params []string) (param string, err error) {
 }
 
 func SendRequest(url, method string, params []string) (result []byte, err error) {
-	param, err := parse(params)
-	if err != nil {
-		return
-	}
+	param := parse(params)
 	jsonStr := fmt.Sprintf(`{"jsonrpc":"1.0","method":"%s","params":[%s]}`, method, param)
 
 	ctx := context.Background()
