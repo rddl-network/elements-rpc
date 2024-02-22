@@ -19,12 +19,12 @@ func BlindRawTransaction(url string, params []string) (hex string, err error) {
 }
 
 // GetAddressInfo returns information about the given address.
-func GetAddressInfo(url string, params []string) (addressInfo types.GetAddressInfoResult, err error) {
+func GetAddressInfo(url string, params []string) (addressInfoResult types.GetAddressInfoResult, err error) {
 	result, err := SendRequest(url, types.MethodGetAddressInfo, params)
 	if err != nil {
 		return
 	}
-	err = json.Unmarshal(result, &addressInfo)
+	err = json.Unmarshal(result, &addressInfoResult)
 	if err != nil {
 		return
 	}
@@ -147,12 +147,12 @@ func ListWallets(url string, params []string) (wallets []string, err error) {
 }
 
 // Listreceivedbyaddress returns a list of transactions
-func ListReceivedByAddress(url string, params []string) (receivedTx []types.ListReceivedByAddressResult, err error) {
+func ListReceivedByAddress(url string, params []string) (listReceivedByAddressResults []types.ListReceivedByAddressResult, err error) {
 	result, err := SendRequest(url, types.MethodListReceivedByAddress, params)
 	if err != nil {
 		return
 	}
-	err = json.Unmarshal(result, &receivedTx)
+	err = json.Unmarshal(result, &listReceivedByAddressResults)
 	if err != nil {
 		return
 	}
