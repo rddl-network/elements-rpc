@@ -76,3 +76,13 @@ type SignRawTransactionWithWalletResult struct {
 type UnloadWalletResult struct {
 	Warning string `json:"warning"`
 }
+
+type ListReceivedByAddressResult struct {
+	Account           string   `json:"account"`
+	Address           string   `json:"address"`
+	Amount            float64  `json:"amount"`
+	Label             string   `json:"label"`
+	Confirmations     uint64   `json:"confirmations"`
+	TxIDs             []string `json:"txids,omitempty"`
+	InvolvesWatchonly bool     `json:"involvesWatchonly,omitempty"`
+}

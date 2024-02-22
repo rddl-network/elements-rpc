@@ -25,4 +25,6 @@ var (
 	MethodDeriveAddresses              = "deriveaddresses"
 	MethodUnloadWallet                 = "unloadwallet"
 	MethodWalletpassphrase             = "walletpassphrase"
+	MethodListWallets                  = "listwallets"
+	MethodListReceivedByAddress        = "listreceivedbyaddress"
 )
