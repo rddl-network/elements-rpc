@@ -125,8 +125,12 @@ func UnloadWallet(url string, params []string) (unloadWalletResult types.UnloadW
 
 // Walletpassphrase stores the wallet decryption key in memory for 'timeout'
 // seconds.
-func Walletpassphrase(url string, params []string) (err error) {
-	_, err = SendRequest(url, types.MethodWalletpassphrase, params)
+func Walletpassphrase(url string, params []string) (walletpassphraseResult types.WalletpassphraseResult, err error) {
+	resultBytes, err := SendRequest(url, types.MethodWalletpassphrase, params)
+	if err != nil {
+		return
+	}
+	err = json.Unmarshal(resultBytes, &walletpassphraseResult)
 	if err != nil {
 		return
 	}
