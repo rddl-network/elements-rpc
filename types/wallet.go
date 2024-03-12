@@ -86,3 +86,6 @@ type ListReceivedByAddressResult struct {
 	TxIDs             []string `json:"txids,omitempty"`
 	InvolvesWatchonly bool     `json:"involvesWatchonly,omitempty"`
 }
+
+type WalletpassphraseResult struct {
+}

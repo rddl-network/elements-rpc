@@ -92,6 +92,8 @@ func GetDoFunc(req *http.Request) (*http.Response, error) {
 		response.Result = testUnloadWallet
 	case types.MethodListWallets:
 		response.Result = testListWallets
+	case types.MethodWalletpassphrase:
+		response.Result = nil
 	default:
 		response.Result = nil
 		response.Error.Code = -1337
