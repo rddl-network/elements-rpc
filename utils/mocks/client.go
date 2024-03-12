@@ -38,6 +38,9 @@ var (
 	}}
 	testDeriveAddressesResult = types.DeriveAddressesResult{address}
 	zeros                     = "0000000000000000000000000000000000000000000000000000000000000000"
+	testLoadWallet            = types.LoadWalletResult{Name: "testwallet4", Warning: ""}
+	testUnloadWallet          = types.UnloadWalletResult{Warning: ""}
+	testListWallets           = []string{"testwallet4"}
 )
 
 // GetDoFunc fetches the mock client's `Do` func
@@ -83,6 +86,12 @@ func GetDoFunc(req *http.Request) (*http.Response, error) {
 		response.Result = testMempoolAcceptResults
 	case types.MethodDeriveAddresses:
 		response.Result = testDeriveAddressesResult
+	case types.MethodLoadWallet:
+		response.Result = testLoadWallet
+	case types.MethodUnloadWallet:
+		response.Result = testUnloadWallet
+	case types.MethodListWallets:
+		response.Result = testListWallets
 	default:
 		response.Result = nil
 		response.Error.Code = -1337
