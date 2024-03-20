@@ -25,21 +25,17 @@ func init() {
 	Client = &http.Client{}
 }
 
-func parse(params []string) (param string) {
+func Parse(params []string) (param string) {
 	if len(params) == 0 {
 		param = ""
 		return
-	}
-
-	if !strings.HasPrefix(params[0], "[") || !strings.HasSuffix(params[0], "]") {
-		params[0] = `"` + params[0] + `"`
 	}
 	param = strings.Join(params, ",")
 	return
 }
 
 func SendRequest(url, method string, params []string) (result []byte, err error) {
-	param := parse(params)
+	param := Parse(params)
 	jsonStr := fmt.Sprintf(`{"jsonrpc":"1.0","method":"%s","params":[%s]}`, method, param)
 
 	ctx := context.Background()
