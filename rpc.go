@@ -31,9 +31,6 @@ func parse(params []string) (param string) {
 		return
 	}
 
-	if !strings.HasPrefix(params[0], "[") || !strings.HasSuffix(params[0], "]") {
-		params[0] = `"` + params[0] + `"`
-	}
 	param = strings.Join(params, ",")
 	return
 }
