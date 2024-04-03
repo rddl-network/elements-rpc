@@ -89,3 +89,5 @@ type ListReceivedByAddressResult struct {
 
 type WalletpassphraseResult struct {
 }
+
+type GetBalanceResult map[string]float64
