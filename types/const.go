@@ -27,4 +27,5 @@ var (
 	MethodWalletpassphrase             = "walletpassphrase"
 	MethodListWallets                  = "listwallets"
 	MethodListReceivedByAddress        = "listreceivedbyaddress"
+	MethodGetBalance                   = "getbalance"
 )

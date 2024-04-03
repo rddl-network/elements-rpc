@@ -2,9 +2,33 @@
 
 ## Example usage
 
+### GetBalance
+```golang
+package main
+
+import (
+	"fmt"
+	"log"
+
+	elementsrpc "github.com/rddl-network/elements-rpc"
+)
+
+func main() {
+	res, err := elementsrpc.GetBalance("http://user:password@127.0.0.1:18891/wallet/foowallet", []string{})
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(res)
+}
+```
+Output:
+```
+map[bitcoin:0]
+```
+
 ### Reissue Asset
 
-```
+```golang
 package main
 
 import (
@@ -36,7 +60,7 @@ Output:
 ### Send To Address
 
 
-```
+```golang
 package main
 
 import (
@@ -74,7 +98,7 @@ Output:
 ```
 
 ### Wallet management
-```
+```golang
 package main
 
 import (
@@ -113,7 +137,7 @@ Output:
 
 ### Complex Example
 
-```
+```golang
 package main
 
 import (
