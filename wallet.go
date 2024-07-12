@@ -163,6 +163,7 @@ func ListReceivedByAddress(url string, params []string) (listReceivedByAddressRe
 	return
 }
 
+// GetBalance returns balances for a given wallet
 func GetBalance(url string, params []string) (getBalanceResult types.GetBalanceResult, err error) {
 	result, err := SendRequest(url, types.MethodGetBalance, params)
 	if err != nil {
@@ -172,5 +173,11 @@ func GetBalance(url string, params []string) (getBalanceResult types.GetBalanceR
 	if err != nil {
 		return
 	}
+	return
+}
+
+// WalletLock removes the encryption key from memory for a given wallet
+func WalletLock(url string) (err error) {
+	_, err = SendRequest(url, types.MethodWalletLock, []string{})
 	return
 }

@@ -28,4 +28,5 @@ var (
 	MethodListWallets                  = "listwallets"
 	MethodListReceivedByAddress        = "listreceivedbyaddress"
 	MethodGetBalance                   = "getbalance"
+	MethodWalletLock                   = "walletlock"
 )
